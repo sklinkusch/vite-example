@@ -1,0 +1,18 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+App > input {
+  background-color: white;
+  color: black;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0.8rem 0.2rem;
+}
+
+App > input::-webkit-datetime-edit {
+  padding: 1em;
+}

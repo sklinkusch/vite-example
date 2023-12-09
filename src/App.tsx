@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useDebugState } from "use-named-state";
+import Form from "./components/Form/Form";
 import "./App.css";
 
 function App() {
-  const [date, setDate] = useState<string>(new Date().toLocaleDateString("sv"));
+  const [name, setName] = useDebugState<string>("name", "");
+  const [date, setDate] = useDebugState<string>(
+    "date",
+    new Date().toLocaleDateString("sv")
+  );
   return (
     <div id="App">
-      <input
-        type="date"
-        defaultValue={date}
-        onChange={(e) => setDate(e.currentTarget.value)}
-      />
+      <Form name={name} setName={setName} date={date} setDate={setDate} />
     </div>
   );
 }

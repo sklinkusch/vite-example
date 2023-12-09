@@ -2612,6 +2612,11 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+use-named-state@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-named-state/-/use-named-state-1.0.0.tgz#a432fce1a36b8e4b25fe9f123cd6122215764583"
+  integrity sha512-UOS/lfoeVdzTpyZYc0e5el6UV7zT2gk3xAS3Rt5cXmmPokWZXt5ImmH+i7ZwWnnDBn1yo+t24TzyacdLTBXRoA==
+
 vite@^5.0.0:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/vite/-/vite-5.0.7.tgz#ad081d735f6769f76b556818500bdafb72c3fe93"

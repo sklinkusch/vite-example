@@ -1,4 +1,5 @@
 import { ChangeEvent, SetStateAction } from "react";
+import styles from "./Form.module.css";
 
 type Props = {
   name: string;
@@ -16,26 +17,32 @@ const Form = ({ name, setName, date, setDate }: Props) => {
     }
   };
   return (
-    <div>
-      <form>
-        <div>
-          <label htmlFor="name">Name</label>
+    <div className={styles.formWrapper}>
+      <form className={styles.form}>
+        <div className={styles.formElement}>
+          <label htmlFor="name" className={styles.formLabel}>
+            Name
+          </label>
           <input
             type="text"
             name="name"
             id="name"
             defaultValue={name}
             onChange={(e) => assignNewName(e)}
+            className={styles.formInput}
           />
         </div>
-        <div>
-          <label htmlFor="date">Birthday</label>
+        <div className={styles.formElement}>
+          <label htmlFor="date" className={styles.formLabel}>
+            Birthday
+          </label>
           <input
             type="date"
             name="date"
             id="date"
             defaultValue={date}
             onChange={(e) => setDate(e.currentTarget.value)}
+            className={styles.formInput}
           />
         </div>
       </form>

@@ -5,14 +5,8 @@
   text-align: center;
 }
 
-App > input {
-  background-color: white;
-  color: black;
-  font-size: 1.6rem;
-  line-height: 1;
-  padding: 0.8rem 0.2rem;
-}
-
-App > input::-webkit-datetime-edit {
-  padding: 1em;
+#App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -4,6 +4,7 @@ import "./App.css";
 import { useEffect } from "react";
 import MessageField from "./components/MessageField/MessageField";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import FetchField from "./components/FetchField/FetchField";
 
 const theme = createTheme({});
 
@@ -34,6 +35,7 @@ function App() {
       <div id="App">
         <Form name={name} setName={setName} date={date} setDate={setDate} />
         <MessageField text={text} />
+        <FetchField />
       </div>
     </ThemeProvider>
   );

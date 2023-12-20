@@ -1,28 +1,8 @@
 import { useState, useEffect } from "react";
 
-type Location = {
-  type: string;
-  id: string;
-  latitude: number;
-  longitude: number;
-};
-
-type Prod = {
-  suburban: boolean;
-  subway: boolean;
-  tram: boolean;
-  bus: boolean;
-  ferry: boolean;
-  express: boolean;
-  regional: boolean;
-};
-
 type Dataset = {
-  type: string;
   id: string;
   name: string;
-  location: Location;
-  products: Prod;
   distance: number;
 };
 

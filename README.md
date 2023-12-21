@@ -1,30 +1,114 @@
-# React + TypeScript + Vite
+# React + Typescript + Vite Example
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Implementation of Testing
 
-Currently, two official plugins are available:
+1. Install the following packages:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- @testing-library/dom
+- @testing-library/jest-dom
+- @testing-library/react
+- @testing-library/user-event
+- @vitest/ui
+- vitest
 
-## Expanding the ESLint configuration
+2. Install the following scripts:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
+```json
+{
+  "test": "vitest",
+  "test:ui"; "vitest --ui",
+  "coverage": "vitest run --coverage"
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Change your `vite.config.ts`:
+
+```javascript
+/// <reference types="vitest">
+/// <reference types="vite/client">
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  ...
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+    css: false,
+  },
+});
+```
+
+4. Change your `tsconfig.json` that it contains:
+
+```json
+{
+  "include": ["src", "@testing-library/jest-dom"]
+}
+```
+
+5. Generate a file `src/setupTests.ts` with:
+
+```javascript
+/// <reference types="vitest-globals" />
+import "@testing-library/jest-dom";
+```
+
+6. Generate a file `utils/test-utils.tsx` with
+
+```jsx
+import { cleanup, render } from "@testing-library/react";
+import { afterEach } from "vitest";
+
+afterEach(() => {
+  cleanup();
+});
+
+const customRender = (ui: React.ReactElement, options = {}) =>
+  render(ui, {
+    // wrap provider(s) here if needed
+    wrapper: ({ children }) => children,
+    ...options
+  });
+
+  /* eslint-disable-next-line */
+  export * from "@testing-library/react";
+  export { default as userEvent } from "@testing-library/user-event";
+  // overwrite render export
+  export { customRender as render };
+```
+
+7. Try writing a test like in `MessageField.test.tsx`
+
+## Implement fetching tests
+
+Generate a file like `FetchField.test.tsx`:
+
+```jsx
+import { Mock, describe, expect, it, vi } from "vitest";
+import FetchField from "./FetchField";
+import { render } from "../../../utils/test-utils";
+
+globalThis.fetch = vi.fn();
+
+/* eslint-disable-next-line */
+function createFetchResponse(data: any) {
+  return { json: () => new Promise((resolve) => resolve(data)) };
+}
+
+describe("tests on FetchField", () => {
+  it("calls a fetch", () => {
+    const mockResponse = [{ name: "Marchbrücke", id: "000", distance: 42 }];
+    (globalThis.fetch as Mock).mockResolvedValue(
+      createFetchResponse(mockResponse)
+    );
+    render(<FetchField />);
+    expect(fetch).toHaveBeenCalled();
+  });
+});
+```
+
+Happy testing!

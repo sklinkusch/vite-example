@@ -16,7 +16,7 @@
 ```json
 {
   "test": "vitest",
-  "test:ui"; "vitest --ui",
+  "test:ui": "vitest --ui",
   "coverage": "vitest run --coverage"
 }
 ```
